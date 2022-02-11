@@ -6,6 +6,14 @@
 1）求n的第k位数字 n>>k&1
 2）清除n最低位的1 lowbit(n)=n&(n-1)
 
+5   &  4  
+101 &  100 =》100
+6   &  5
+110 &  101 =》100
+4   &  3
+100 &  011 =》000
+故n & n-1会消除最低位的1
+
 解法一
 5
 1 2 3 4 5
@@ -27,7 +35,9 @@
 while n:
     n = n & (n-1)
 """
-def get_one_num(n):
+
+
+def low_bit(n):
     cnt = 0
     while n:
         n = n & (n - 1)
@@ -48,7 +58,7 @@ def main():
     arr = [int(i) for i in input().split()]
     res = []
     for i in range(len(arr)):
-        res.append(str(get_one_num(arr[i])))
+        res.append(str(low_bit(arr[i])))
     print(' '.join(res))
 
 
