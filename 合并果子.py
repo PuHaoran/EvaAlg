@@ -30,4 +30,5 @@ def main():
         pq.put(x + y)
     print(res)
 
+
 main()
