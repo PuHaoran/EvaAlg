@@ -40,21 +40,24 @@ i   j    i     j
       <=x >x      
 两指针从左右两端向中间靠拢，i和j要求满足arr[i] < x, arr[j] < x，若不满足且i < j则交换两者位置；
 当i >= j时，此时可将区间分位[l, j], [j+1, r](arr[j] <= x, arr[j+1] >= x)。
+
+论证i和j一定不会过界。
+1. |_________________|
+   ij
+情况一，i和j都在首位置，因为不满足i<j，则直接进行下次函数递归，不用担心过界。
+2. |a            b|
+   |______________x__|
+   i              j
+情况二，i在首位置，j在其他位置，则交换i和j此时对于j而言a位置就是边界，对于i而言b位置就是边界，故也不用担心过界。
 """
 
 
-def quick_sort(arr, l, r):
-    """
-    快排
-    :param arr:
-    :param l: 左端点
-    :param r: 右端点
-    :return:
-    """
+def quick_sort(l, r):
     if l >= r:
         return
-    i, j, x = l-1, r+1, arr[l+r >> 1]#arr[l]
-    while i<j:
+    x = arr[(l+r)//2]
+    i, j = l-1, r+1
+    while i < j:
         while 1:
             i += 1
             if arr[i] >= x:
@@ -65,15 +68,16 @@ def quick_sort(arr, l, r):
                 break
         if i < j:
             arr[i], arr[j] = arr[j], arr[i]
-    quick_sort(arr, l, j)
-    quick_sort(arr, j+1, r)
+    quick_sort(l, j)
+    quick_sort(j+1, r)
 
 
 def main():
+    global arr
     n = int(input())
-    arr = [int(x) for x in input().split()]
-    quick_sort(arr, 0, len(arr) - 1)
-    for i in arr:
-        print(i, end=' ')
+    arr = list(map(int, input().split()))
+    quick_sort(0, len(arr)-1)
+    print(' '.join([str(i) for i in arr]))
+
 
 main()
