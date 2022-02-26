@@ -5,7 +5,8 @@ import os
 from random import choice
 
 memory_dict = {
-    '快速排序.py': 1
+    '快速排序.py': 1,
+    '合并集合.py': 1
 }
 
 

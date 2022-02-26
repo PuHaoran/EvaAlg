@@ -38,31 +38,28 @@ Yes
 合并：两个集合的编号分别为a,b，合并操作pre[b] = a。
 """
 
-pre = [i for i in range(100010)]
-
-
-def merge(a, b):
-    pre[find(b)] = find(a)
-
 
 def find(a):
+    """ 根节点查找和路径压缩 """
     if pre[a] != a:
         pre[a] = find(pre[a])
     return pre[a]
 
 
 def main():
+    global pre
     n, m = map(int, input().split())
-    for _ in range(m):
-        op, a, b = input().split()
-        a, b = int(a), int(b)
+    pre = [i for i in range(0, n + 1)]
+    for i in range(m):
+        row = input().split()
+        op, a, b = row[0], int(row[1]), int(row[2])
         if op == 'M':
-            merge(a, b)
-        else:
+            pre[find(b)] = find(a)
+        elif op == 'Q':
             if find(a) == find(b):
-                print('Yes')
+                print("Yes")
             else:
-                print('No')
+                print("No")
 
 
 main()
