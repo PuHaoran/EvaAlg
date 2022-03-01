@@ -6,7 +6,9 @@ from random import choice
 
 memory_dict = {
     '快速排序.py': 1,
-    '合并集合.py': 1
+    '合并集合.py': 1,
+    '最短编辑距离.py': 1,
+    '编辑距离.py': 1
 }
 
 
