@@ -8,9 +8,9 @@ memory_dict = {
     '快速排序.py': 1,
     '合并集合.py': 1,
     '最短编辑距离.py': 1,
-    '编辑距离.py': 1
+    '编辑距离.py': 1,
+    '完全背包问题.py': 1
 }
-
 
 def main():
     files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py']
