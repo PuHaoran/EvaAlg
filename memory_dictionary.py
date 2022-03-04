@@ -11,7 +11,9 @@ memory_dict = {
     '编辑距离.py': 1,
     '完全背包问题.py': 1,
     '子矩阵的和.py': 1,
+    '数的三次方根.py':1,
 }
+
 
 def main():
     files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py']
