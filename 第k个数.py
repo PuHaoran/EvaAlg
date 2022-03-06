@@ -29,32 +29,34 @@
 """
 
 
-def topk(arr, l, r, k):
-    if l == r:
-        return arr[l]
+def quick_sort(l, r):
+    if l >= r:
+        print(arr[l])
+        return
     i, j = l-1, r+1
+    x = arr[l]
     while i < j:
         while 1:
             i += 1
-            if arr[l] <= arr[i]:
+            if arr[i] >= x:
                 break
         while 1:
             j -= 1
-            if arr[l] >= arr[j]:
+            if arr[j] <= x:
                 break
         if i < j:
             arr[i], arr[j] = arr[j], arr[i]
-    if k-1 <= j:
-        return topk(arr, l, j, k)
+    if j < k-1:
+        quick_sort(j+1, r)
     else:
-        return topk(arr, j+1, r, k)
+        quick_sort(l, j)
 
 
 def main():
-    _k = [int(i) for i in input().split()]
-    _, k = _k[0], _k[1]
-    arr = [int(i) for i in input().split()]
-    res = topk(arr, 0, len(arr)-1, k)
-    print(res)
+    global arr, k
+    n, k = map(int, input().split())
+    arr = list(map(int, input().split()))
+    quick_sort(0, len(arr)-1)
+
 
 main()

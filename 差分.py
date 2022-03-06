@@ -17,19 +17,20 @@
 
 
 def main():
-    m, q = map(int, input().split())
-    arr = list(map(int, input().split()))
-    diff_arr = [arr[i]-arr[i-1] if i != 0 else arr[i] for i in range(len(arr))]
-    for i in range(q):
-        _ = [int(i) for i in input().split()]
-        l, r, c = _[0]-1, _[1]-1, _[2]
-        diff_arr[l] += c
-        if r+1 < len(diff_arr):
-            diff_arr[r+1] -= c
-    for i in range(len(diff_arr)):
-        if i != 0:
-            diff_arr[i] += diff_arr[i-1]
-    print(' '.join([str(i) for i in diff_arr]))
+    n, m = map(int, input().split())
+    arr = [0]+list(map(int, input().split()))
+    f = [0] * (n+2)
+
+    for i in range(1, len(arr)):
+        f[i] = arr[i] - arr[i-1]
+
+    for _ in range(m):
+        l, r, c = map(int, input().split())
+        f[l] += c
+        f[r+1] -= c
+    for i in range(1, len(arr)):
+        f[i] += f[i-1]
+    print(' '.join([str(i) for i in f[1:n+1]]))
 
 
 main()
