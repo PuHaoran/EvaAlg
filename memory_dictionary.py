@@ -5,7 +5,7 @@ import os
 from random import choice
 
 mtl_dict = {
-    'ESSM': 0,
+    'ESSM': 1,
     'MMOE': 0,
     'PLE': 0,
 }
@@ -16,16 +16,18 @@ dl_dict = {
     '优化算法': 0,
     '过/欠拟合': 0,
     '梯度消失与梯度爆炸': 0,
-    'RNN': 0,
+    'RNN': 1,
     'GRU': 0,
-    'LSTM': 0,
+    'LSTM': 1,
+    'Softmax和Softmax loss': 0,
+    'AUC和gAUC':0,
 }
 
 ltr_dict = {
     'LR': 0,
     'GBDT': 0,
     'FM': 0,
-    'NCF': 0,
+    'NCF': 1,
     'Wide&Deep': 0,
     'DIN': 0,
     'BST': 0,
@@ -37,7 +39,7 @@ memory_dict = {
     '最短编辑距离.py': 1,
     '编辑距离.py': 1,
     '完全背包问题.py': 1,
-    '子矩阵的和.py': 1,
+    '子矩阵的和.py': 2,
     '数的三次方根.py': 1,
     '第k个数.py': 1,
     '差分': 1,
