@@ -70,24 +70,24 @@ YES
 
 
 def main():
-    queue = [0] * 100010
-    p, q = -1, -1
     n = int(input())
+    arr = [0] * 100010
+    p, q = -1, -1
     for _ in range(n):
         row = input().split()
-        if row[0] == 'push':
-            x = int(row[1])
+        op = row[0]
+        if op == 'push':
             q += 1
-            queue[q] = x
-        elif row[0] == 'pop':
-            p += 1
-        elif row[0] == 'empty':
+            arr[q] = int(row[1])
+        elif op == 'empty':
             if p == q:
-                print('YES')
+                print("YES")
             else:
-                print('NO')
-        else:
-            print(queue[p+1])
+                print("NO")
+        elif op == 'pop':
+            p += 1
+        elif op == 'query':
+            print(arr[p+1])
 
 
 main()
