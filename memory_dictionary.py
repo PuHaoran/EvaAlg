@@ -7,27 +7,28 @@ from random import choice
 
 mtl_dict = {
     'ESSM': 1,
-    'MMOE': 1,
+    'MMOE': 2,
     'PLE': 0,
+    'DeepFM_Transformer': 0,
 }
 
 dl_dict = {
-    '损失函数': 0,
+    '损失函数': 1,
     '激活函数': 1,
     '优化算法': 0,
     '过/欠拟合': 0,
     '梯度消失与梯度爆炸': 1,
-    'RNN': 1,
+    'RNN': 2,
     'GRU': 0,
-    'LSTM': 1,
+    'LSTM': 2,
     'Softmax和Softmax loss': 0,
-    'AUC和gAUC':0,
+    'AUC和gAUC':1,
 }
 
 ltr_dict = {
     'LR': 0,
     'GBDT': 0,
-    'FM': 0,
+    'FM': 2,
     'NCF': 1,
     'Wide&Deep': 0,
     'DIN': 0,
@@ -45,6 +46,8 @@ memory_dict = {
     '第k个数.py': 1,
     '差分.py': 1,
     '模拟队列.py': 1,
+    '八数码.py': 1,
+    '二进制中1的个数.py': 1
 }
 
 
@@ -59,7 +62,7 @@ def choice_kg(dict, item_num=1):
 
 
 def main():
-    files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py']
+    files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py' and i != 'beta0.1.py']
     l = []
     for file in files:
         num = 5
@@ -69,7 +72,7 @@ def main():
         l += [file] * num
     print(choice(l))
 
-    choice_kg(dl_dict, 2)
+    choice_kg(dl_dict, 1)
     choice_kg(ltr_dict, 1)
     choice_kg(mtl_dict, 1)
 

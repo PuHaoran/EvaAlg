@@ -50,37 +50,36 @@ x 4 6
 from queue import Queue
 
 
-def swap(s, i, j):
-    l = list(s)
-    l[i], l[j] = l[j], l[i]
-    return ''.join(l)
+def swap(s, idx, new_idx):
+    s = list(s)
+    s[idx], s[new_idx] = s[new_idx], s[idx]
+    return ''.join(s)
 
 
 def bfs(s):
-    end = '12345678x'
-    d = {}
-    d[s] = 0
     q = Queue()
+    end = '12345678x'
+    path_dict = {}
+    path_dict[s] = 0
     q.put(s)
-    dx, dy = [0, 0, -1, 1], [-1, 1, 0, 0]
+    dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
     while q.qsize():
         t = q.get()
         if t == end:
-            return d[t]
-        # 状态转移
-        k = t.find('x')
-        kx, ky = k // 3, k % 3
-        dist = d[t]
+            return path_dict[t]
+        dist = path_dict[t]
+        idx = t.index('x')
         for i in range(4):
-            x, y = kx+dx[i], ky+dy[i]
+            x = idx // 3 + dx[i]
+            y = idx % 3 + dy[i]
             if x >= 0 and x < 3 and y >= 0 and y < 3:
-                # 状态还原，交换位置
-                t = swap(t, k, x*3+y)
-                if t not in d:
-                    d[t] = dist+1
+                new_idx = x * 3 + y
+                # 交换x与其他字符的位置
+                t = swap(t, idx, new_idx)
+                if t not in path_dict:
+                    path_dict[t] = dist + 1
                     q.put(t)
-                # 回溯
-                t = swap(t, k, x * 3 + y)
+                t = swap(t, new_idx, idx)
     return -1
 
 

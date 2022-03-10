@@ -34,29 +34,22 @@ while n:
 """
 
 
-def low_bit(n):
-    cnt = 0
-    while n:
-        n = n & (n - 1)
-        cnt += 1
-    return cnt
-# def get_one_num(x):
-#     cnt = 0
-#     while x:
-#         t = x % 2
-#         x = x // 2
-#         if t:
-#             cnt += 1
-#     return cnt
+def get_lowbit(n):
+    return n & -n
 
 
 def main():
-    _ = input()
-    arr = [int(i) for i in input().split()]
+    _ = int(input())
+    arr = list(map(int, input().split()))
     res = []
     for i in range(len(arr)):
-        res.append(str(low_bit(arr[i])))
-    print(' '.join(res))
+        t = arr[i]
+        cnt = 0
+        while t:
+            cnt += 1
+            t -= get_lowbit(t)
+        res.append(cnt)
+    print(' '.join([str(i) for i in res]))
 
 
 main()
