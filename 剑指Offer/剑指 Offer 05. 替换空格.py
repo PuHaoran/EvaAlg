@@ -37,21 +37,21 @@ we%20are%20happy.
 
 class Solution:
     def replaceSpace(self, s: str) -> str:
-        arr, cnt = [0]*len(s), 0
+        s = list(s)
+        cnt = 0
         for i in range(len(s)):
             if s[i] == ' ':
                 cnt += 1
-            arr[i] = s[i]
-        arr += [' '] * cnt * 2
-        i, j = len(s)-1, len(arr)-1
-        while i < j:
-            if arr[i] != ' ':
-                arr[j] = arr[i]
+        i, j = len(s)-1, len(s)+cnt*2-1
+        s += [' ']*cnt*2
+        while i >= 0:
+            if s[i] != ' ':
+                s[j] = s[i]
                 j -= 1
             else:
-                arr[j] = '0'
-                arr[j-1] = '2'
-                arr[j-2] = '%'
+                s[j] = '0'
+                s[j-1] = '2'
+                s[j-2] = '%'
                 j -= 3
             i -= 1
-        return ''.join(arr)
+        return ''.join(s)

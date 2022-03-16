@@ -43,22 +43,17 @@ i          ->
 """
 
 
-def get_idx(a_arr, b_arr, x):
+def main():
+    n, m, x = map(int, input().split())
+    a_arr = list(map(int, input().split()))
+    b_arr = list(map(int, input().split()))
     j = len(b_arr)-1
     for i in range(len(a_arr)):
-        while a_arr[i] + b_arr[j] > x:
+        while a_arr[i]+b_arr[j] > x:
             j -= 1
         if a_arr[i] + b_arr[j] == x:
             print(i, j)
             return
-
-
-def main():
-    _ = [int(i) for i in input().split()]
-    n, m, x = _[0], _[1], _[2]
-    a_arr = [int(i) for i in input().split()]
-    b_arr = [int(i) for i in input().split()]
-    get_idx(a_arr, b_arr, x)
 
 
 main()

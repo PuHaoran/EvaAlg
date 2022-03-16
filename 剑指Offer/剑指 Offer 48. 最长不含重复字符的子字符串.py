@@ -21,8 +21,26 @@
 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
 """
+""" 题解
+遍历数组，设置一个双向队列存储无重复子串，当前元素不在队列中则直接加入队列，当前元素若已在队列中则从左边弹出元素直至队列中不在存在当前元素。
+"""
+import collections
 
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        pass
+        s = list(s)
+        q = collections.deque()
+        res = 0
+        for i in range(len(s)):
+            if s[i] not in q:
+                q.append(s[i])
+            else:
+                res = max(res, len(q))
+                while 1:
+                    t = q.popleft()
+                    if t == s[i]:
+                        break
+                q.append(s[i])
+        res = max(res, len(q))
+        return res

@@ -4,21 +4,24 @@
 import os
 from random import choice
 
-
+"""
+['BST']
+['MMOE']
+"""
 mtl_dict = {
     'ESSM': 1,
     'MMOE': 2,
-    'PLE': 0,
+    'PLE': 1,
     'DeepFM_Transformer': 0,
 }
 
 dl_dict = {
-    '损失函数': 1,
+    '损失函数': 3,
     '激活函数': 1,
     '优化算法': 0,
-    '过/欠拟合': 0,
+    '过/欠拟合': 1,
     '梯度消失与梯度爆炸': 1,
-    'RNN': 2,
+    'RNN': 3,
     'GRU': 0,
     'LSTM': 2,
     'Softmax和Softmax loss': 0,
@@ -28,16 +31,20 @@ dl_dict = {
 ltr_dict = {
     'LR': 0,
     'GBDT': 0,
-    'FM': 2,
     'NCF': 1,
+    'FM': 2,
+    'NFM': 0,
+    'AFM': 0,
     'Wide&Deep': 0,
-    'DIN': 0,
+    'DeepFM': 0,
+    'DIN': 1,
     'BST': 0,
+    'bandit': 0,
 }
 
 memory_dict = {
     '快速排序.py': 1,
-    '合并集合.py': 1,
+    '合并集合.py': 2,
     '最短编辑距离.py': 1,
     '编辑距离.py': 1,
     '完全背包问题.py': 1,
@@ -47,7 +54,11 @@ memory_dict = {
     '差分.py': 1,
     '模拟队列.py': 1,
     '八数码.py': 1,
-    '二进制中1的个数.py': 1
+    '二进制中1的个数.py': 1,
+    '剑指 Offer 05. 替换空格.py': 1,
+    '剑指 Offer 22. 链表中倒数第k个节点.py': 1,
+    '数组元素的目标和.py': 1,
+    '剑指 Offer 29. 顺时针打印矩阵.py': 1,
 }
 
 
@@ -63,6 +74,7 @@ def choice_kg(dict, item_num=1):
 
 def main():
     files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py' and i != 'beta0.1.py']
+    files += [i for i in os.listdir('./剑指offer/') if i.endswith('.py')]
     l = []
     for file in files:
         num = 5
@@ -71,7 +83,7 @@ def main():
         num = max(1, num)
         l += [file] * num
     print(choice(l))
-
+    print(choice(l))
     choice_kg(dl_dict, 1)
     choice_kg(ltr_dict, 1)
     choice_kg(mtl_dict, 1)
