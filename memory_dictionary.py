@@ -4,23 +4,20 @@
 import os
 from random import choice
 
-"""
-['BST']
-['MMOE']
-"""
+
 mtl_dict = {
     'ESSM': 1,
-    'MMOE': 2,
+    'MMOE': 3,
     'PLE': 1,
-    'DeepFM_Transformer': 0,
+    'DeepFM_Transformer': 1,
 }
 
 dl_dict = {
     '损失函数': 3,
     '激活函数': 1,
     '优化算法': 0,
-    '过/欠拟合': 1,
-    '梯度消失与梯度爆炸': 1,
+    '过/欠拟合': 2,
+    '梯度消失与梯度爆炸': 2,
     'RNN': 3,
     'GRU': 0,
     'LSTM': 2,
@@ -34,11 +31,11 @@ ltr_dict = {
     'NCF': 1,
     'FM': 2,
     'NFM': 0,
-    'AFM': 0,
+    'AFM': 1,
     'Wide&Deep': 0,
     'DeepFM': 0,
     'DIN': 1,
-    'BST': 0,
+    'BST': 1,
     'bandit': 0,
 }
 
@@ -59,6 +56,10 @@ memory_dict = {
     '剑指 Offer 22. 链表中倒数第k个节点.py': 1,
     '数组元素的目标和.py': 1,
     '剑指 Offer 29. 顺时针打印矩阵.py': 1,
+    '滑动窗口.py': 1,
+    '剑指 Offer 58 - I. 翻转单词顺序': 1,
+    '剑指 Offer 04. 二维数组中的查找.py': 1,
+    '剑指 Offer 31. 栈的压入、弹出序列.py': 1,
 }
 
 
