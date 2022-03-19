@@ -5,6 +5,13 @@ import os
 from random import choice
 
 
+"""
+剑指 Offer 12. 矩阵中的路径.py
+n皇后问题.py
+['AUC和gAUC']
+['LR']
+['PLE']
+"""
 mtl_dict = {
     'ESSM': 1,
     'MMOE': 3,
