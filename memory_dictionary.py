@@ -1,5 +1,5 @@
 """
-获取当前文件夹下的所有代码，根据一定概率进行随机选择
+获取当前文件夹下的所有代码，根据一定概率进行随机选择。
 """
 import os
 from random import choice
@@ -30,6 +30,9 @@ dl_dict = {
     'LSTM': 2,
     'Softmax和Softmax loss': 0,
     'AUC和gAUC':1,
+    'Word2vec': 0,
+    'session划分': 0,
+    'pltv预估': 0,
 }
 
 ltr_dict = {

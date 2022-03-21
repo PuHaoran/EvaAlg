@@ -20,8 +20,20 @@
 输入：nums = [5,4,-1,7,8]
 输出：23
 """
+""" 题解
+动态规划。①状态表示。②状态转移。f(i)=max(f(i-1)+arr[i],arr[i])。
+"""
 
 
 class Solution:
     def maxSubArray(self, nums):
-        pass
+        nums = [0] + nums
+        f = [0]*len(nums)
+        for i in range(1, len(nums)):
+            f[i] = max(f[i-1]+nums[i], nums[i])
+        return max(f[1:])
+
+
+nums = [-1]
+solution = Solution()
+print(solution.maxSubArray(nums))
