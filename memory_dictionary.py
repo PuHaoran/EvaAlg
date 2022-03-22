@@ -5,17 +5,10 @@ import os
 from random import choice
 
 
-"""
-剑指 Offer 12. 矩阵中的路径.py
-n皇后问题.py
-['AUC和gAUC']
-['LR']
-['PLE']
-"""
 mtl_dict = {
     'ESSM': 1,
     'MMOE': 3,
-    'PLE': 1,
+    'PLE': 2,
     'DeepFM_Transformer': 1,
 }
 
@@ -29,14 +22,14 @@ dl_dict = {
     'GRU': 0,
     'LSTM': 2,
     'Softmax和Softmax loss': 0,
-    'AUC和gAUC':1,
+    'AUC和gAUC':2,
     'Word2vec': 0,
     'session划分': 0,
     'pltv预估': 0,
 }
 
 ltr_dict = {
-    'LR': 0,
+    'LR': 2,
     'GBDT': 0,
     'NCF': 1,
     'FM': 2,
@@ -70,6 +63,8 @@ memory_dict = {
     '剑指 Offer 58 - I. 翻转单词顺序': 1,
     '剑指 Offer 04. 二维数组中的查找.py': 1,
     '剑指 Offer 31. 栈的压入、弹出序列.py': 1,
+    '剑指 Offer 12. 矩阵中的路径.py': 1,
+    'n皇后问题.py': 1,
 }
 
 

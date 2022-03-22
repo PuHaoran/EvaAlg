@@ -27,6 +27,7 @@
 从根节点开始，不断交换左右子树。
 """
 
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):

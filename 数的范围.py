@@ -77,6 +77,8 @@ l         r
 1 2 2 3 3 4    (3) 
       o
 """
+
+
 def bin_search1(arr, l, r, m):
     if l >= r:
         if m == arr[l]:
@@ -98,6 +100,8 @@ def bin_search1(arr, l, r, m):
 1 2 2 3 3 4    (3)
         o
 """
+
+
 def bin_search2(arr, l, r, m):
     if l >= r:
         if m == arr[l]:

@@ -40,10 +40,12 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
         if not root:
             return True
+
         def curr(l, r):
             if not l and not r:
                 return True
