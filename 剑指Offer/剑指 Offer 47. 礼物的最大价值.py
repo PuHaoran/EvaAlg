@@ -15,22 +15,18 @@
 法一：DFS（超时）。
 法二：动态规划
 ①动态表达 f(i, j)，第i,j步能拿到的最大价值。
-②动态转移 f(i, j)=max(f(i-1, j)+arr(i,j), f(i, j-1)+arr[i][j]。
+②动态转移 f(i,j)=max(f(i-1,j), f(i,j-1))+arr[i][j]。
 """
 
 
 class Solution:
-    def maxValue(self, grid):
-        m, n = len(grid), len(grid[0])
-        f = [[0]*n for _ in range(m)]
-        f[0][0] = grid[0][0]
-        for i in range(m):
-            for j in range(n):
-                if i-1 >= 0:
-                    f[i][j] = f[i-1][j] + grid[i][j]
-                if j-1 >= 0:
-                    f[i][j] = max(f[i][j], f[i][j-1]+grid[i][j])
-        return f[m-1][n-1]
+    def maxValue(self, grid) -> int:
+        n, m = len(grid), len(grid[0])
+        f = [[0]*(m+1) for _ in range(n+1)]
+        for i in range(1, n+1):
+            for j in range(1, m+1):
+                f[i][j] = max(f[i-1][j], f[i][j-1]) + grid[i-1][j-1]
+        return f[n][m]
 
 
 # class Solution:
