@@ -9,7 +9,7 @@
 输出：false
 """
 """ 题解
-先通过快慢指针找到链表后半部分，然后对后半部分进行翻转，再进行比较。
+双指针+链表翻转。先通过快慢指针找到链表后半部分，然后对后半部分进行翻转，再进行比较。
 """
 
 
@@ -22,4 +22,22 @@ class ListNode:
 
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        pass
+        p, q = head, head
+        while q:
+            p = p.next
+            q = q.next
+            if q:
+                q = q.next
+        l = None
+        while p:
+            p_next = p.next
+            p.next = l
+            l = p
+            p = p_next
+        p = head
+        while l:
+            if l.val != p.val:
+                return False
+            l = l.next
+            p = p.next
+        return True
