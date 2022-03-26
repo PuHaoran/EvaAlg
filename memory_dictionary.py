@@ -5,6 +5,13 @@ import os
 from random import choice
 
 
+"""
+剑指 Offer 56 - I. 数组中数字出现的次数.py
+多重背包问题I.py
+['RNN']
+['bandit']
+['ESSM']
+"""
 mtl_dict = {
     'ESSM': 1,
     'MMOE': 3,
