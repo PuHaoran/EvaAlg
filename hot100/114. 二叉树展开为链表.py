@@ -12,6 +12,9 @@
 输入：root = [1,2,5,3,4,null,6]
 输出：[1,null,2,null,3,null,4,null,5,null,6]
 """
+""" 题解
+先序遍历，保存节点到数组中，然后再遍历数组重构树。
+"""
 
 
 class TreeNode:
@@ -26,3 +29,19 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
+        if not root:
+            return
+        arr = []
+        def dfs(root):
+            if not root:
+                return
+            arr.append(root)
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
+        pre = arr[0]
+        for i in range(1, len(arr)):
+            cur = arr[i]
+            pre.left = None
+            pre.right = cur
+            pre = cur
