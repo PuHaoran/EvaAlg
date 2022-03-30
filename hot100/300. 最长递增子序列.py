@@ -19,7 +19,23 @@
 输入：nums = [7,7,7,7,7,7,7]
 输出：1
 """
+""" 题解
+[10,9,2,5,3,7,101,18]
+DP。状态表达。f(i)当前最长递增序列长度；状态转移。f(i)=max(f(i), f(j)+1)，初始化f=[1]*n。
+"""
+
 
 class Solution:
     def lengthOfLIS(self, nums) -> int:
-        
+        n = len(nums)
+        f = [1] * n
+        for i in range(n):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    f[i] = max(f[i], f[j]+1)
+        return max(f)
+
+
+nums = [1,3,6,7,9,4,10,5,6]
+solution = Solution()
+print(solution.lengthOfLIS(nums))
