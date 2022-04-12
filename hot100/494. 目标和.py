@@ -25,25 +25,42 @@
 输出：1
 """
 """ 题解
-略
+①状态表达。f(i,j)代表0-i个元素进行加减可以得到元素j的方法数量。
+②状态转移。f(i,j)=f(i-1,j-nums[i]) + result(i-1,j+nums[i])
+
+加法的总和x，减法(无符号)的总和sum-x，则x-(sum-x)=target，即x=(target+sum)//2，问题转化为装满容量为x的背包，有多少种方法。
+eg:(5+3)//2=4。
+f(i,j)代表0-i个元素加减可以得到元素j的个数。
+f(i,j)=f(i-1, j-nums[i])
 """
 
 
 class Solution:
     def findTargetSumWays(self, nums, target: int) -> int:
-        global res, t
-        t, res = 0, 0
+        res = 0
+        s = sum(nums)
+        if (target+s) % 2 == 1:
+            return 0
+        if abs(target) > s:
+            return 0
 
-        def dfs(u, t):
-            global res
-            if u == len(nums):
-                if t == target:
-                    res += 1
-                return
-            dfs(u+1, t+nums[u])
-            dfs(u+1, t-nums[u])
-        dfs(0, 0)
-        return res
+
+
+# class Solution:
+#     def findTargetSumWays(self, nums, target: int) -> int:
+#         global res, t
+#         t, res = 0, 0
+#
+#         def dfs(u, t):
+#             global res
+#             if u == len(nums):
+#                 if t == target:
+#                     res += 1
+#                 return
+#             dfs(u+1, t+nums[u])
+#             dfs(u+1, t-nums[u])
+#         dfs(0, 0)
+#         return res
 
 
 nums = [1,1,1,1,1]

@@ -36,7 +36,27 @@ DP问题
     f(i, j) [不含i; 包含i]
             f(i-1, j) f(i-1, j-vi) + wi
 => 方程
-f(i, j) = max(f(i-1, j), f(i-1, j-vi) + wi
+f(i, j) = max(f(i-1, j), f(i-1, j-vi) + wi)
+"""
+"""
+01背包
+f(i,j)前i个物品<=j体积的最大价值。
+f(i,j)=max(f(i-1,j), f(i-1, j-vi)+wi)
+
+完全背包
+f(i,j)前i个物品<=j体积的最大价值。
+f(i,j)=max(f(i-1,j), f(i-1,j-vi)+wi, f(i-1,j-2vi)+2wi,...)            ①
+f(i,j-vi)=max(f(i-1,j-vi), f(i-1,j-2vi)+wi, f(i-1,j-2vi)+2wi...)      ②
+由①②得
+f(i,j)=max(f(i-1,j), f(i,j-vi)+wi)
+
+多重背包
+f(i,j)前i个物品<=j体积的最大价值。
+f(i,j)=max(f(i-1,j), f(i-1,j-vi)+wi...f(i-1,j-kvi)+kwi)
+
+分组背包
+f(i,j)前i组物品<=j体积的最大价值。
+f(i,j)=max(f(i-1,j), f(i-1,j-vi)+wi)
 """
 
 

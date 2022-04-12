@@ -6,11 +6,8 @@ from random import choice
 
 
 """
-剑指 Offer 56 - I. 数组中数字出现的次数.py
-多重背包问题I.py
-['RNN']
-['bandit']
-['ESSM']
+剑指 Offer 65. 不用加减乘除做加法.py
+剑指 Offer 27. 二叉树的镜像.py
 """
 mtl_dict = {
     'ESSM': 1,
@@ -66,6 +63,7 @@ memory_dict = {
     '二进制中1的个数.py': 1,
     '剑指 Offer 04. 二维数组中的查找.py': 1,
     '剑指 Offer 05. 替换空格.py': 1,
+    '剑指 Offer 10- I. 斐波那契数列.py': 1,
     '剑指 Offer 12. 矩阵中的路径.py': 1,
     '剑指 Offer 22. 链表中倒数第k个节点.py': 1,
     '数组元素的目标和.py': 1,
