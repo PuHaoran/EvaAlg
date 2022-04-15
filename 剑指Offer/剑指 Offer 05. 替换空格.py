@@ -1,5 +1,9 @@
 """
+剑指 Offer 05. 替换空格
 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+
+
+
 示例 1：
 
 输入：s = "We are happy."
@@ -43,15 +47,15 @@ class Solution:
             if s[i] == ' ':
                 cnt += 1
         i, j = len(s)-1, len(s)+cnt*2-1
-        s += [' ']*cnt*2
+        s += ['']*cnt*2
         while i >= 0:
-            if s[i] != ' ':
-                s[j] = s[i]
-                j -= 1
-            else:
+            if s[i] == ' ':
                 s[j] = '0'
                 s[j-1] = '2'
                 s[j-2] = '%'
                 j -= 3
+            else:
+                s[j] = s[i]
+                j -= 1
             i -= 1
         return ''.join(s)

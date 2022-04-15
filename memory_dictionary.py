@@ -6,8 +6,6 @@ from random import choice
 
 
 """
-剑指 Offer 65. 不用加减乘除做加法.py
-剑指 Offer 27. 二叉树的镜像.py
 """
 mtl_dict = {
     'ESSM': 1,
@@ -61,15 +59,19 @@ memory_dict = {
     '滑动窗口.py': 1,
     'n皇后问题.py': 1,
     '二进制中1的个数.py': 1,
+    '数组元素的目标和.py': 1,
+    '剑指 Offer 03. 数组中重复的数字': 1,
     '剑指 Offer 04. 二维数组中的查找.py': 1,
     '剑指 Offer 05. 替换空格.py': 1,
     '剑指 Offer 10- I. 斐波那契数列.py': 1,
     '剑指 Offer 12. 矩阵中的路径.py': 1,
     '剑指 Offer 22. 链表中倒数第k个节点.py': 1,
-    '数组元素的目标和.py': 1,
+    '剑指 Offer 24. 反转链表.py': 1,
+    '剑指 Offer 27. 二叉树的镜像.py': 1,
     '剑指 Offer 29. 顺时针打印矩阵.py': 1,
     '剑指 Offer 31. 栈的压入、弹出序列.py': 1,
     '剑指 Offer 47. 礼物的最大价值': 1,
+    '剑指 Offer 48. 最长不含重复字符的子字符串.py': 1,
     '剑指 Offer 57. 和为s的两个数字.py': 1,
     '剑指 Offer 58 - I. 翻转单词顺序': 1,
 }
@@ -86,8 +88,8 @@ def choice_kg(dict, item_num=1):
 
 
 def main():
-    files = [i for i in os.listdir('./') if i.endswith('.py') and i != 'memory_dictionary.py' and i != 'beta0.1.py']
-    files += [i for i in os.listdir('./剑指offer/') if i.endswith('.py')]
+    files = [i for i in os.listdir('./acwing/') if i.endswith('.py')]
+    files += [i for i in os.listdir('./剑指Offer/') if i.endswith('.py')]
     l = []
     for file in files:
         num = 5

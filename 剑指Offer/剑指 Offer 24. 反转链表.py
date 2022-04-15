@@ -7,7 +7,7 @@
 输出: 5->4->3->2->1->NULL
 """
 """ 题解
-q和p指向第一个和第二个节点，然后先保存p_next节点并将p节点指向q节点，更新p节点为q，p_next节点为p，直到p节点指向空。
+p为首节点，q为空节点；遍历p的同时保存p_next=p.next，并将p节点作为q的首节点p.next=q，然后更新p和q。
 """
 
 
@@ -20,12 +20,7 @@ class ListNode:
 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        if head is None:
-            return head
-        q, p = head, head.next
-        if p is None:
-            return q
-        q.next = None
+        p, q = head, None
         while p:
             p_next = p.next
             p.next = q
