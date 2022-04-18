@@ -9,18 +9,28 @@
 解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 '1'。
 """
 """ 题解
-位运算，求n的第k位数字，n>>k&1；消除最低位的1，n&(n-1)。
+位运算
+求n的第k位数字，k & 1；消除最低位的1，n&(n-1)。
 """
 
 
 class Solution:
     def hammingWeight(self, n: int):
-        cnt = 0
+        res = 0
         while n:
-            cnt += n & 1
+            res += n & 1
             n = n >> 1
-        return cnt
+        return res
 
 
 solution = Solution()
 print(solution.hammingWeight(128))
+
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        while n:
+            res += 1
+            n = n & n-1
+        return res

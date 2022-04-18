@@ -1,4 +1,5 @@
 """
+剑指 Offer 07. 重建二叉树
 输入某二叉树的前序遍历和中序遍历的结果，请构建该二叉树并返回其根节点。
 
 假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
@@ -14,10 +15,9 @@ Input: preorder = [-1], inorder = [-1]
 Output: [-1]
 """
 """ 题解
-用四个变量代表当前前序遍历和中序遍历的元素区间，先通过前序确定根节点，然后中序确定左右子树，递归操作。
-root = new TreeNode(根)
-root.left = build(前左，中左)
-root.right = build(前右，中右)
+根据前序数组的首元素可确定根节点，根据中序数组可确定该根节点对应的左右子树。
+然后，根据确定的左/右子树的前序数组和中序数组继续递归。
+伪代码：root.left = dfs(左子树前序数组，左子树中序数组)；root.right = dfs(右子树前序数组，右子树中序数组)。
 
  3 9 20 15 7
  pl        pr
@@ -48,29 +48,15 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, preorder, inorder):
-        def build(preorder, inorder, pl, pr, il, ir):
-            if pl > pr or il > ir:
+        def dfs(preorder, pre_l, pre_r, inorder, in_l, in_r):
+            if pre_r < pre_l:
                 return None
-            root_value = preorder[pl]
-            root = TreeNode(root_value)
-            idx = inorder_dict[root_value]
-
-            # 左子树的前序左右索引、中序左右索引
-            root.left = build(preorder,
-                              inorder,
-                              pl + 1,
-                              pl + idx - il,
-                              il,
-                              idx - 1)
-            root.right = build(preorder,
-                               inorder,
-                               pr - (ir - idx - 1),
-                               pr,
-                               idx + 1,
-                               ir)
+            idx = inorder.index(preorder[pre_l])
+            root = TreeNode(preorder[pre_l])
+            root.left = dfs(preorder, pre_l + 1, pre_l + idx - in_l, inorder, in_l, idx - 1)
+            root.right = dfs(preorder, pre_l + idx - in_l + 1, pre_r, inorder, idx + 1, in_r)
             return root
 
-        inorder_dict = {}
-        for i in range(len(inorder)):
-            inorder_dict[inorder[i]] = i
-        return build(preorder, inorder, 0, len(preorder) - 1, 0, len(inorder) - 1)
+        pre_l, pre_r, in_l, in_r = 0, len(preorder) - 1, 0, len(inorder) - 1
+        root = dfs(preorder, pre_l, pre_r, inorder, in_l, in_r)
+        return root

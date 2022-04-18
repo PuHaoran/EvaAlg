@@ -1,4 +1,5 @@
 """
+剑指 Offer 21. 调整数组顺序使奇数位于偶数前面
 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数在数组的前半部分，所有偶数在数组的后半部分。
 
 示例：
@@ -14,17 +15,15 @@
 
 class Solution:
     def exchange(self, nums):
-        if len(nums) == 0:
-            return []
         i, j = -1, len(nums)
         while i < j:
             while 1:
                 i += 1
-                if not nums[i] & 1 or i >= len(nums)-1:
+                if i >= j or not nums[i] & 1:
                     break
             while 1:
                 j -= 1
-                if nums[j] & 1 or j <= 0:
+                if j <= i or nums[j] & 1:
                     break
             if i < j:
                 nums[i], nums[j] = nums[j], nums[i]

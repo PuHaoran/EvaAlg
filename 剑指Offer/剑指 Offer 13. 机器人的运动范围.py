@@ -16,50 +16,43 @@
 0 <= k <= 20
 """
 """ 题解
+模版
 // 初始化队列
-while q.qsize():
-    t = q.get()
+while len(q):
+    t = q.pop()
     // 扩展t，入队列
-0 0
-0 0
-0 0
-
-输入：m = 2, n = 3, k = 1
-输出：3
-示例 2：
-
-输入：m = 3, n = 1, k = 0
-输出：1
 """
-from queue import Queue
 
 
 class Solution:
-    def movingCount(self, m: int, n: int, k: int):
-        def get_digit_sum(a):
-            s = 0
-            while a:
-                s += a % 10
-                a //= 10
-            return s
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        from collections import deque
 
-        def bfs(q, mark, res, m, n, k):
-            dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
-            while q.qsize():
-                t = q.get()
-                for i in range(4):
-                    x, y = t[0] + dx[i], t[1] + dy[i]
-                    if x >= 0 and x < m and y >= 0 and y < n and get_digit_sum(x) + get_digit_sum(y) <= k and not mark[x][y]:
-                        res += 1
-                        q.put((x, y))
-                        mark[x][y] = 1
+        def get_digit(i):
+            res = 0
+            while i:
+                res += i % 10
+                i = i // 10
             return res
 
+        def check(i, j, k):
+            if get_digit(i) + get_digit(j) <= k:
+                return True
+            return False
+        res = 1
+        dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]
         mark = [[0]*n for _ in range(m)]
         mark[0][0] = 1
-        q = Queue()
-        q.put((0, 0))
-        res = bfs(q, mark, 1, m, n, k)
+        q = deque()
+        q.append((0, 0))
+        while len(q):
+            t = q.pop()
+            for i in range(4):
+                x, y = t[0] + dx[i], t[1] + dy[i]
+                if x >= 0 and x < m and y >= 0 and y < n and not mark[x][y] and check(x, y, k):
+                    res += 1
+                    mark[x][y] = 1
+                    q.append((x, y))
         return res
 
 

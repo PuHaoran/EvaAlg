@@ -17,7 +17,7 @@
 左边数组一定小于等于右边数组，故我们可以通过二分来缩减筛选范围。
 arr[mid] > arr[r]  l=mid+1
 arr[mid] < arr[r] r=mid
-arr[mid] == arr[r] j=j-1
+arr[mid] == arr[r] r=r-1
 
 输入：[3,4,5,1,2]
 输出：1
@@ -29,19 +29,19 @@ arr[mid] == arr[r] j=j-1
 
 
 class Solution:
-    def minArray(self, numbers):
-        def bs(l, r):
+    def minArray(self, numbers) -> int:
+        def binary_search(numbers, l, r):
             if l >= r:
                 return numbers[l]
-            mid = (l+r) // 2
-            if numbers[mid] > numbers[r]:
-                l = mid+1
-            elif numbers[mid] < numbers[r]:
+            mid = (l + r) // 2
+            if numbers[mid] < numbers[r]:
                 r = mid
+            elif numbers[mid] == numbers[r]:
+                r -= 1
             else:
-                r = r-1
-            return bs(l, r)
-        return bs(0, len(numbers)-1)
+                l = mid + 1
+            return binary_search(numbers, l, r)
+        return binary_search(numbers, 0, len(numbers)-1)
 
 
 numbers = [3,4,5,1,2]
