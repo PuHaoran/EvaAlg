@@ -1,6 +1,5 @@
 """
 剑指 Offer 35. 复杂链表的复制
-剑指 Offer 35. 复杂链表的复制
 请实现 copyRandomList 函数，复制一个复杂链表。在复杂链表中，每个节点除了有一个 next 指针指向下一个节点，还有一个 random 指针指向链表中的任意节点或者 null。
 
 示例 1：
@@ -12,11 +11,9 @@
 输出：[[1,1],[2,1]]
 """
 """ 题解
-复制链表的各节点在原节点后面，则复制节点的random可以是当前节点random的下一个节点。
-# 1->2->3->None
-# |_____|
-# 1->1->2->2->3->3->None
+复制链表各节点在原链表节点后，然后遍历链表根据原链表random节点的下一个节点即为新链表对应的random节点，得到复制链表。
 """
+
 
 class Node:
     def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
@@ -26,7 +23,7 @@ class Node:
 
 
 class Solution:
-    def copyRandomList(self, head: 'Node'):
+    def copyRandomList(self, head: 'Node') -> 'Node':
         p = head
         while p:
             p_next = p.next
@@ -34,20 +31,18 @@ class Solution:
             p.next = q
             q.next = p_next
             p = p_next
-        p = head
         new_head = Node(-1)
         h = new_head
+        p = head
         while p:
             q = p.next
-            pr = p.random
-            q.random = pr.next
+            p_random = p.random
+            if not p_random:
+                q_random = None
+            else:
+                q_random = p_random.next
+            q.random = q_random
             h.next = q
             h = h.next
             p = q.next
-        return h.next
-
-
-
-
-
-
+        return new_head.next

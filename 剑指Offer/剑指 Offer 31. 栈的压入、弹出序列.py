@@ -1,4 +1,5 @@
 """
+剑指 Offer 31. 栈的压入、弹出序列
 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
 
 示例 1：
@@ -15,21 +16,22 @@ push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
 解释：1 不能在 2 之前弹出。
 """
 """ 题解
-定义一个栈，遍历pushed，直接对元素入栈，若当前栈顶元素等于出栈数组元素，则弹出并出栈数组进一。
+遍历pushed，将元素逐个入栈，若当前栈顶元素等于popped当前所指元素，则弹出栈顶元素并popped指针进一。
 """
+
 
 class Solution:
     def validateStackSequences(self, pushed, popped):
-        j = 0
-        top = -1
-        s = [0]*1010
-        for i in range(len(pushed)):
-            top += 1
-            s[top] = pushed[i]
-            while top != -1 and s[top] == popped[j]:
-                top -= 1
+        i, j = 0, 0
+        t, s = -1, [0] * len(pushed)
+        while i < len(pushed):
+            t += 1
+            s[t] = pushed[i]
+            i += 1
+            while t != -1 and s[t] == popped[j]:
                 j += 1
-        if top == -1 and j == len(popped):
+                t -= 1
+        if t == -1:
             return True
         return False
 
@@ -38,4 +40,3 @@ pushed = [1,2,3,4,5]
 popped = [4,3,5,1,2]
 solution = Solution()
 print(solution.validateStackSequences(pushed, popped))
-

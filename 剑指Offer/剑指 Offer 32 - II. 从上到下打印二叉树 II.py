@@ -18,7 +18,7 @@
 ]
 """
 """ 题解
-BFS，初始化队列 while queue.qsize: t=q.put() 扩展t，注意当前队列大小即为当前层的全部元素长度。
+BFS。初始化队列 while len(q): t=q.popleft() 扩展t，注意当前队列大小即为当前层的全部元素长度。
 """
 
 
@@ -31,23 +31,21 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode):
-        from queue import Queue
-        queue = Queue()
-        res = []
         if not root:
-            return res
-        queue.put(root)
-        while queue.qsize():
+            return []
+        res = []
+        from collections import deque
+        q = deque()
+        q.append(root)
+        while len(q):
+            cnt = len(q)
             temp = []
-            for _ in range(queue.qsize()):
-                t = queue.get()
+            for _ in range(cnt):
+                t = q.popleft()
                 temp.append(t.val)
                 if t.left:
-                    queue.put(t.left)
+                    q.append(t.left)
                 if t.right:
-                    queue.put(t.right)
+                    q.append(t.right)
             res.append(temp)
         return res
-
-
-

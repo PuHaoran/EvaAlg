@@ -29,7 +29,7 @@ B是A的子结构， 即 A中有出现和B相同的结构和节点值。
 输出：true
 """
 """ 题解
-判断B是否是A的子树需要从A的各个节点进行判断，故我们需要二个递归，一个用来比较从根节点开始是否相等，一个用来遍历A的所有节点。
+递归。判断B是否是A的子树需要从A的各个节点进行判断，故我们需要二个递归，一个用来比较从根节点开始是否相等，一个用来遍历A的所有节点。
 """
 
 
@@ -43,16 +43,16 @@ class TreeNode:
 
 class Solution:
     def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
-        def checkSub(A, B):
+        if not A or not B:
+            return False
+
+        def dfs(A, B):
             if not B:
                 return True
-            if not A or (A.val != B.val):
+            if not A:
                 return False
-            return checkSub(A.left, B.left) and checkSub(A.right, B.right)
-        if not B:
-            return True
-        if not A:
-            return False
-        return checkSub(A, B) or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)
-
-
+            if A.val != B.val:
+                return False
+            return dfs(A.left, B.left) and dfs(A.right, B.right)
+        res = dfs(A, B)
+        return res or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)

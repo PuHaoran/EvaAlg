@@ -8,7 +8,7 @@
 特别地，我们希望可以就地完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
 """
 """ 题解
-中序遍历，遍历过程保存上次遍历节点并构建链表。
+中序遍历，遍历过程中保存上次遍历的节点并进行双向链表构建。
 """
 
 
@@ -22,23 +22,24 @@ class Node:
 class Solution:
     def treeToDoublyList(self, root):
         if not root:
-            return root
-        global head, pre
-        pre = -1
+            return None
+        global pre, head
+        pre = None
+
         def dfs(root):
+            global pre, head
             if not root:
                 return
-            global head, pre
             dfs(root.left)
-            if pre == -1:
-                head = root
-            else:
-                pre.right = root
+            if pre:
                 root.left = pre
+                pre.right = root
+            if not pre:
+                head = root
             pre = root
             dfs(root.right)
+
         dfs(root)
-        # 头尾相连
-        pre.right = head
         head.left = pre
+        pre.right = head
         return head

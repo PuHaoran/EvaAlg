@@ -34,20 +34,26 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode):
-        from queue import Queue
         if not root:
             return []
         res = []
-        q = Queue()
-        q.put(root)
-        while q.qsize():
+        from collections import deque
+        q = deque()
+        q.append(root)
+        i = 1
+        while len(q):
+            cnt = len(q)
             temp = []
-            for _ in range(q.qsize()):
-                t = q.get()
+            for _ in range(cnt):
+                t = q.popleft()
                 temp.append(t.val)
                 if t.left:
-                    q.put(t.left)
+                    q.append(t.left)
                 if t.right:
-                    q.put(t.right)
-            res.append(temp)
-        return [res[i] if i % 2 else res[i][::-1] for i in range(len(res))]
+                    q.append(t.right)
+            if i % 2:
+                res.append(temp)
+            else:
+                res.append(temp[::-1])
+            i += 1
+        return res

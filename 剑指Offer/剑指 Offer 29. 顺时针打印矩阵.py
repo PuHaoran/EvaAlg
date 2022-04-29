@@ -14,40 +14,41 @@
 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
 """
 """ 题解
-四个while循环，分别为右、左、下、上，走下一步前先进行判断。
-1  2  3  4
-5  6  7  8
-9 10 11  12
+按照右、下、左、上的顺序遍历数组，其中起始位置位于(0,-1)，走下一步之前先进行正确性的判断。
 """
 
 
 class Solution:
     def spiralOrder(self, matrix):
-        if len(matrix) == 0:
+        m = len(matrix)
+        if m == 0:
             return []
-        i, j, k = 0, -1, 0
-        n, m = len(matrix), len(matrix[0])
-        mark = [[0]*m for _ in range(n)]
+        n = len(matrix[0])
+        mark = [[0]*n for _ in range(m)]
+        i, j, t = 0, -1, 0
         res = []
-        while 1:
-            if len(res) == n * m:
-                return res
-            while j+1>=0 and j+1<m and not mark[i][j+1]:
+        while t < m * n:
+            while j+1<n and not mark[i][j+1]:
                 j += 1
+                t += 1
                 mark[i][j] = 1
                 res.append(matrix[i][j])
-            while i+1>=0 and i+1<n and not mark[i+1][j]:
+            while i+1<m and not mark[i+1][j]:
                 i += 1
+                t += 1
                 mark[i][j] = 1
                 res.append(matrix[i][j])
-            while j-1>=0 and j-1<m and not mark[i][j-1]:
+            while j-1>=0 and not mark[i][j-1]:
                 j -= 1
+                t += 1
                 mark[i][j] = 1
                 res.append(matrix[i][j])
-            while i-1>=0 and i-1<n and not mark[i-1][j]:
+            while i-1>=0 and not mark[i-1][j]:
                 i -= 1
+                t += 1
                 mark[i][j] = 1
                 res.append(matrix[i][j])
+        return res
 
 
 matrix = []

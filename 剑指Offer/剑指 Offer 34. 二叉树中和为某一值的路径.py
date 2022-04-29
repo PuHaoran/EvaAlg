@@ -24,7 +24,7 @@
 输出：[]
 """
 """ 题解
-DFS，增加一个变量保存当前target-node.val的值，当该值为零，将路劲保存到结果列表。
+前序遍历。增加一个变量保存当前target-node.val的值，当该值为零且当前节点为叶子节点，将路径保存到结果列表。
 """
 
 
@@ -38,19 +38,22 @@ class TreeNode:
 
 class Solution:
     def pathSum(self, root: TreeNode, target: int):
-        res = []
-        path = []
+        if not root:
+            return []
+        global res, temp
+        res, temp = [], []
 
         def dfs(root, t):
             if not root:
                 return
-            path.append(root.val)
             t -= root.val
+            temp.append(root.val)
             if not root.left and not root.right and t == 0:
-                res.append(path.copy())
+                res.append(temp.copy())
             dfs(root.left, t)
             dfs(root.right, t)
-            path.pop()
+            temp.pop()
+            t += root.val
 
         dfs(root, target)
         return res

@@ -14,28 +14,20 @@
 输出: 2
 """
 """ 题解
-先排序，然后去掉任意两个不相等的数据，最后剩下的就是众数。
+先排序，然后通过前后两个双指针去掉任意两个不相等的数据，最后剩下的就是众数。
 """
 
 
 class Solution:
     def majorityElement(self, nums):
         nums = sorted(nums)
-        mark = [0]*len(nums)
         i, j = 0, len(nums)-1
-        while i < j:
-            if nums[i] != nums[j]:
-                mark[i] = 1
-                mark[j] = 1
+        while nums[i] != nums[j]:
             i += 1
             j -= 1
-
-        for i in range(len(nums)):
-            if not mark[i]:
-                return nums[i]
+        return nums[i]
 
 
 nums = [1, 2, 2, 2, 2, 5, 4, 2]
 solution = Solution()
 print(solution.majorityElement(nums))
-

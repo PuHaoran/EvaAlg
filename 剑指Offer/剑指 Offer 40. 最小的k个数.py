@@ -13,8 +13,8 @@
 输入：arr = [0,1,2,1], k = 1
 输出：[0]
 """
-""" 题解：
-堆排序，构建一个1-n的数组，然后从n//2（最后一个分支节点）进行down操作，判断当前节点与孩子节点大小并交换(若交换则继续down)。
+""" 题解
+堆排序，构建1-n的数组，然后从倒数第一个非叶子节点从后向前遍历，down(i)以递归方式进行节点位置的调整，判断当前节点与孩子节点大小并交换(若交换则按交换的孩子位置继续down)。
 """
 
 
@@ -22,33 +22,66 @@ class Solution:
     def getLeastNumbers(self, arr, k: int):
         global n
         n = len(arr)
-        h = [0] + arr
+        arr = [0] + arr
 
         def down(i):
             t = i
-            if i*2 <= n and h[i*2] < h[t]:
-                t = i*2
-            if i*2+1 <= n and h[i*2+1] < h[t]:
-                t = i*2+1
-            if t != i:
-                h[i], h[t] = h[t], h[i]
+            if 2*i<=n and arr[2*i] < arr[t]:
+                t = 2*i
+            if 2*i+1<=n and arr[2*i+1] < arr[t]:
+                t = 2*i+1
+            if i != t:
+                arr[i], arr[t] = arr[t], arr[i]
                 down(t)
-
         for i in range(n//2, 0, -1):
             down(i)
-
         res = []
         for _ in range(k):
-            res.append(h[1])
-            h[1], h[n] = h[n], h[1]
+            res.append(arr[1])
+            arr[1], arr[n] = arr[n], arr[1]
             n -= 1
             down(1)
         return res
 
 
-arr = [0,0,0,1,2,2,3,7,6,1]
+arr = [1, 3, 2, 4, 5]
 k = 3
 solution = Solution()
 print(solution.getLeastNumbers(arr, k))
 
 
+""" 题解
+利用快排模版解题。[_A_][__B__]，若k的个数<=A长度则只递归A（最小的k个值在A区间里），否则只递归B并更新k-=A区间长度（A区间的值都满足最小的k个值，同时有一部分k-A长度个值在B区间里）。
+"""
+
+
+class Solution:
+    def getLeastNumbers(self, arr, k: int):
+        def quick_sort(arr, l, r, k):
+            if l >= r:
+                return
+            x = arr[l]
+            i, j = l - 1, r + 1
+            while i < j:
+                while 1:
+                    i += 1
+                    if arr[i] >= x:
+                        break
+                while 1:
+                    j -= 1
+                    if arr[j] <= x:
+                        break
+                if i < j:
+                    arr[i], arr[j] = arr[j], arr[i]
+            if k <= j-l+1:
+                quick_sort(arr, l, j, k)
+            else:
+                quick_sort(arr, j+1, r, k-(j-l+1))
+        quick_sort(arr, 0, len(arr)-1, k)
+        return arr[:k]
+
+
+arr = [0,1,2,1]
+k = 1
+solution = Solution()
+print(solution.getLeastNumbers(arr, k))

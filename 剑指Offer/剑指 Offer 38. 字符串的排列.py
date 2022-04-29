@@ -24,20 +24,18 @@ DFS，使用数组mark标记走过的路径，函数传递u作为终止条件。
 
 class Solution:
     def permutation(self, s: str):
-        res = set()
-        temp = []
-        s = list(set(s))
         mark = [0] * len(s)
+        res, temp = set(), []
 
-        def dfs(p):
-            if p == len(s):
+        def dfs(u):
+            if u == len(s):
                 res.add(''.join(temp))
                 return
             for i in range(len(s)):
                 if not mark[i]:
                     temp.append(s[i])
                     mark[i] = 1
-                    dfs(p+1)
+                    dfs(u + 1)
                     temp.pop()
                     mark[i] = 0
 

@@ -24,14 +24,12 @@
 输出：false
 """
 """ 题解
-题解一：先对树进行翻转，然后判断翻转后的树与原树是否对称。
-题解二：直接运用递归求解，不是判断根节点的左右孩子，而是判断最左边的节点和最右边的节点是否相等。
+题解一：直接运用递归求解，dfs(l, r)，然后判断l的左节点==r的右节点&&l的右节点==r的左节点。
             /  \
-            L   R
+            l   r
             /\  /\ 
-           L.L  R.R
+          l.l     r.r
 """
-import copy
 
 
 class TreeNode:
@@ -46,31 +44,36 @@ class Solution:
         if not root:
             return True
 
-        def curr(l, r):
+        def dfs(l, r):
             if not l and not r:
                 return True
-            if not l or not r or l.val != r.val:
+            if not l or not r:
                 return False
-            return curr(l.left, r.right) and curr(l.right, r.left)
-        return curr(root.left, root.right)
-
-# class Solution:
-#     def isSymmetric(self, root: TreeNode) -> bool:
-#         def reverse_tree(root):
-#             if not root:
-#                 return
-#             root.left, root.right = root.right, root.left
-#             reverse_tree(root.left)
-#             reverse_tree(root.right)
-#         dup_root = copy.deepcopy(root)
-#         reverse_tree(dup_root)
-#
-#         def is_same_tree(root, dup_root):
-#             if not root and not dup_root:
-#                 return True
-#             if (not root and dup_root) or (root and not dup_root) or root.val != dup_root.val:
-#                 return False
-#             return is_same_tree(root.left, dup_root.left) and is_same_tree(root.right, dup_root.right)
-#         return is_same_tree(root, dup_root)
+            if l.val != r.val:
+                return False
+            return dfs(l.left, r.right) and dfs(l.right, r.left)
+        return dfs(root.left, root.right)
 
 
+""" 题解
+题解二：先对树进行翻转，然后同时对两棵树进行前序遍历，判断翻转后的树与原树是否对称。
+"""
+import copy
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        def reverse_tree(root):
+            if not root:
+                return
+            root.left, root.right = root.right, root.left
+            reverse_tree(root.left)
+            reverse_tree(root.right)
+        dup_root = copy.deepcopy(root)
+        reverse_tree(dup_root)
+
+        def is_same_tree(root, dup_root):
+            if not root and not dup_root:
+                return True
+            if (not root and dup_root) or (root and not dup_root) or root.val != dup_root.val:
+                return False
+            return is_same_tree(root.left, dup_root.left) and is_same_tree(root.right, dup_root.right)
+        return is_same_tree(root, dup_root)

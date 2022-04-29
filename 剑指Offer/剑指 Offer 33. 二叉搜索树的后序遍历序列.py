@@ -21,26 +21,25 @@
 输出: true
 """
 """ 题解
-[1,3,2,6,5]
-找到第一个大于根节点的值，若i==r，说明没问题。
-1 3 2    6 5
-二叉搜索树的左子树都比最后一个节点(根节点)小，右子树都比根节点大；满足当前条件 & 左子树 & 右子树。
+根节点位于最右边，找到第一个大于根节点的索引，其到根节点之间的所有节点为右子树，其之前的所有节点为左子树；
+若只有一个节点或右子树比根节点小则递归终止，否则继续递归dfs(左子树)&&dfs(右子树)。
 """
 
 
 class Solution:
     def verifyPostorder(self, postorder):
-        def recur(arr, l, r):
+        def dfs(postorder, l, r):
             if l >= r:
                 return True
-            i = l
-            while arr[i] < arr[r]:
-                i += 1
-            m = i
-            while arr[i] > arr[r]:
-                i += 1
-            return i == r and recur(arr, l, m-1) and recur(arr, m, r-1)
-        return recur(postorder, 0, len(postorder)-1)
+            x = postorder[r]
+            for i in range(l, r+1):
+                if postorder[i] > x:
+                    break
+            for j in range(i, r):
+                if postorder[j] <= x:
+                    return False
+            return dfs(postorder, l, i-1) and dfs(postorder,i, r-1)
+        return dfs(postorder, 0, len(postorder)-1)
 
 
 postorder = [1,3,2,6,5]
