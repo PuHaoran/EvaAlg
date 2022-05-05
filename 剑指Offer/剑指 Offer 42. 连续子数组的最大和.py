@@ -9,41 +9,44 @@
 输出: 6
 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
 """
-""" 题解
-法一：
+""" 前缀和解法
 前缀和-当前元素之前的最小前缀和
-法二
-①状态表达 f[i] 当前子数组的最大和。
-②状态转移 f[i] = max(f[i-1]+arr[i], arr[i]) (集合中只有取与不取两个状态)。
 """
+
+
 class Solution:
     def maxSubArray(self, nums) -> int:
-        nums = [0] + nums
         f = [0] * (len(nums)+1)
+        nums = [0] + nums
+
+        for i in range(len(nums)):
+            f[i] = f[i-1] + nums[i]
+
+        _min = 0
         res = float('-inf')
         for i in range(1, len(nums)):
-            f[i] = max(f[i-1]+nums[i], nums[i])
-            res = max(res, f[i])
+            if f[i] - _min > res:
+                res = f[i] - _min
+            if f[i] < _min:
+                _min = f[i]
         return res
-
-# class Solution:
-#     def maxSubArray(self, nums) -> int:
-#         f = [0] * (len(nums)+1)
-#         nums = [0] + nums
-#
-#         for i in range(len(nums)):
-#             f[i] = f[i-1] + nums[i]
-#
-#         _min = 0
-#         res = float('-inf')
-#         for i in range(1, len(nums)):
-#             if f[i] - _min > res:
-#                 res = f[i] - _min
-#             if f[i] < _min:
-#                 _min = f[i]
-#         return res
 
 
 nums = [-2,1,-3,4,-1,2,1,-5,4]
 solution = Solution()
 print(solution.maxSubArray(nums))
+
+""" DP解法
+①状态表达 f[i] 当前子数组的最大和。
+②状态转移 f[i] = max(f[i-1]+arr[i], arr[i]) (集合中只有取与不取两个状态)。
+"""
+
+
+class Solution:
+    def maxSubArray(self, nums) -> int:
+        nums = [0] + nums
+        n = len(nums)
+        f = [float('-inf')] * n
+        for i in range(1, n):
+            f[i] = max(nums[i], f[i-1]+nums[i])
+        return max(f)
