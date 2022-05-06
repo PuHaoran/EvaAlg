@@ -14,25 +14,19 @@
 输出：1
 """
 """ 题解
-011
-100
-011
-011
-=>
-133对应位%3=100，得出多余的数为2。
-a二进制的第31位：a>>31 & 1
+利用n >> k & 1，求n的第k位二进制数。两层循环，外层遍历共31位的二进制数，内层遍历所有元素，所有元素k位求和%3得到多余的数在k位上的数字。
 """
 
 
 class Solution:
     def singleNumber(self, nums) -> int:
-        s = 0
+        res = 0
         for i in range(31, -1, -1):
             t = 0
-            for j in range(len(nums)):
-                t += nums[j] >> i & 1
-            s = s*2 + t % 3
-        return s
+            for num in nums:
+                t += num >> i & 1
+            res = res*2 + t%3
+        return res
 
 
 nums =  [9,1,7,9,7,9,7]

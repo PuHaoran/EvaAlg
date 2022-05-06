@@ -18,37 +18,32 @@
 输出: [null,-1,-1]
 """
 """
-一个队列用于存储原始数据，另外维持一个单调递增的双端队列。
+双端队列。一个队列用于存储原始数据，另外维持一个单调递减的双端队列用于取出最大值。
 """
 
 
 class MaxQueue:
 
     def __init__(self):
-        self.p, self.q = -1, -1
-        self.queue = [0] * 10010
-        self.p2, self.q2 = -1, -1
-        self.queue2 = [0] * 10010
+        from collections import deque
+        self.q1 = deque()
+        self.q2 = deque()
 
     def max_value(self) -> int:
-        if self.p2 == self.q2:
+        if not len(self.q2):
             return -1
-        else:
-            return self.queue2[self.p2+1]
+        return self.q2[0]
 
     def push_back(self, value: int) -> None:
-        self.q += 1
-        self.queue[self.q] = value
-        while self.p2 != self.q2 and value > self.queue2[self.q2]:
-            self.q2 -= 1
-        self.q2 += 1
-        self.queue2[self.q2] = value
+        while len(self.q2) and value > self.q2[-1]:
+            self.q2.pop()
+        self.q2.append(value)
+        self.q1.append(value)
 
     def pop_front(self) -> int:
-        if self.p == self.q:
+        if not len(self.q1):
             return -1
-        t = self.queue[self.p+1]
-        if t == self.queue2[self.p2+1]:
-            self.p2 += 1
-        self.p += 1
+        t = self.q1.popleft()
+        if t == self.q2[0]:
+            self.q2.popleft()
         return t

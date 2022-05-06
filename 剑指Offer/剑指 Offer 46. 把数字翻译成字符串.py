@@ -18,21 +18,16 @@
 
 class Solution:
     def translateNum(self, num: int) -> int:
-        num = str(num)
-        if len(num) == 1:
-            return 1
+        num = '0'+str(num)
         f = [0] * len(num)
         f[0] = 1
-        if num[:2] <= '25':
-            f[1] = 2
-        else:
-            f[1] = 1
+        f[1] = 1
         for i in range(2, len(num)):
-            if num[i-1:i+1] <= '25' and num[i-1:i+1] >= '10':
-                f[i] = f[i-1]+f[i-2]
+            if num[i-1:i+1] >= '10' and num[i-1:i+1] <= '25':
+                f[i] = f[i-1] + f[i-2]
             else:
                 f[i] = f[i-1]
-        return f[-1]
+        return f[len(num)-1]
 
 
 num = 506

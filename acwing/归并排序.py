@@ -72,4 +72,6 @@ def main():
     merge_sort(arr, 0, len(arr)-1)
     for i in arr:
         print(i, end=' ')
+
+
 main()

@@ -14,8 +14,7 @@
 输出：[10,30] 或者 [30,10]
 """
 """ 题解
-法一：hash。
-法二：前后双指针，相加后小于target，i++；否则，j--。
+前后双指针。前后两个指针分别指向第一个和最后一个元素，若二者和等于target则输出结果，若小于target则i++，若大于target则j--。
 """
 
 
@@ -25,20 +24,11 @@ class Solution:
         while i < j:
             if nums[i] + nums[j] == target:
                 return [nums[i], nums[j]]
-            if nums[i] + nums[j] > target:
-                j -= 1
-            if nums[i] + nums[j] < target:
+            elif nums[i] + nums[j] < target:
                 i += 1
-
-# class Solution:
-#     def twoSum(self, nums, target: int):
-#         d = {}
-#         for num in nums:
-#             if target-num in d:
-#                 return [target-num, num]
-#             else:
-#                 d[num] = 1
-#         return [-1, -1]
+            else:
+                j -= 1
+        return []
 
 
 nums = [10,26,30,31,47,60]

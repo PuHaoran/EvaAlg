@@ -15,20 +15,8 @@
 输入：target = 15
 输出：[[1,2,3,4,5],[4,5,6],[7,8]]
 """
-""" 题解
-法一：前缀和，然后找到所有两数相减等于target的区间。
-0 1 2 3 4   5   6   7   8   9
-0 1 3 6 10  15  21  28  36  45
-法二：滑动窗口，i、j分别指向第一个和第二个位置。
-0 1 2 3 4 5 6 7 8 9 
-  i j  1+2<9,j++
-0 1 2 3 4 5 6 7 8 9  
-  i   j  1+2+3<9,j++
-0 1 2 3 4 5 6 7 8 9  
-  i     j  1+2+3+4>9,i++
-0 1 2 3 4 5 6 7 8 9  
-    i   j  2+3+4==9,保存,i++,j++
-...
+""" 前缀和解法
+找到所有两数相减等于target的区间。
 """
 
 
@@ -43,6 +31,37 @@ class Solution:
             d[f[i]] = i
             if f[i] - target in d:
                 res.append(list(range(d[f[i]-target]+1, i+1)))
+        return res
+
+
+""" 滑动窗口解法
+双指针。i、j分别指向数组起始位置，若区间内的元素和等于目标，则i++、j++；若区间内的元素和大于目标，则i++；否则j++。
+0 1 2 3 4 5 6 7 8 9 
+  i j  1+2<9,j++
+0 1 2 3 4 5 6 7 8 9  
+  i   j  1+2+3<9,j++
+0 1 2 3 4 5 6 7 8 9  
+  i     j  1+2+3+4>9,i++
+0 1 2 3 4 5 6 7 8 9  
+    i   j  2+3+4==9,保存,i++,j++
+...
+"""
+
+
+class Solution:
+    def findContinuousSequence(self, target: int):
+        i, j = 1, 1
+        arr = [i for i in range(target)]
+        res = []
+        while i < target and j < target:
+            if sum(arr[i:j+1]) == target:
+                res.append(arr[i:j+1])
+                i += 1
+                j += 1
+            elif sum(arr[i:j+1]) < target:
+                j += 1
+            else:
+                i += 1
         return res
 
 

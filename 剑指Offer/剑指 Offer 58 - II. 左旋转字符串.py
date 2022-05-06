@@ -14,8 +14,6 @@
 输出: "umghlrlose"
 """
 """ 题解
-abcde k=2
-=> edcba =>deabc
 先全部翻转，然后前半部分和后半部分分别翻转。
 """
 
@@ -23,17 +21,8 @@ abcde k=2
 class Solution:
     def reverseLeftWords(self, s: str, n: int) -> str:
         n = n % len(s)
-        s = list(s)
-        def swap(s, i, j):
-            while i < j:
-                s[i], s[j] = s[j], s[i]
-                i += 1
-                j -= 1
-
-        swap(s, 0, len(s)-1)
-        swap(s, 0, len(s)-n-1)
-        swap(s, len(s)-n, len(s)-1)
-        return ''.join(s)
+        s = s[::-1]
+        return s[:n+1][::-1] + s[n:][::-1]
 
 
 s = "abcdefg"

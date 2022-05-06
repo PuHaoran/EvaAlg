@@ -11,9 +11,7 @@
 输出: 12
 解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
 """
-""" 题解
-法一：DFS（超时）。
-法二：动态规划
+""" 动态规划解法
 ①动态表达 f(i, j)，第i,j步能拿到的最大价值。
 ②动态转移 f(i,j)=max(f(i-1,j), f(i,j-1))+arr[i][j]。
 """
@@ -29,30 +27,6 @@ class Solution:
         return f[n][m]
 
 
-# class Solution:
-#     def maxValue(self, grid):
-#         global res
-#         m, n = len(grid), len(grid[0])
-#         mark = [[0]*n for _ in range(m)]
-#         res = 0
-#         dx, dy = [1, 0], [0, 1]
-#
-#         def dfs(i, j, t):
-#             global res
-#             t += grid[i][j]
-#             if i == m-1 and j == n-1:
-#                 res = max(res, t)
-#                 return
-#             for k in range(2):
-#                 x, y = i + dx[k], j + dy[k]
-#                 if x >= 0 and x < m and y >= 0 and y < n and not mark[x][y]:
-#                     mark[x][y] = 1
-#                     dfs(x, y, t)
-#                     mark[x][y] = 0
-#         dfs(0, 0, 0)
-#         return res
-
-
 grid = [
   [1,3,1],
   [1,5,1],
@@ -60,3 +34,31 @@ grid = [
 ]
 solution = Solution()
 print(solution.maxValue(grid))
+
+""" DFS解法
+深搜，找到所有路径，记录最大值并返回。（会超时）
+"""
+
+
+class Solution:
+    def maxValue(self, grid):
+        global res
+        m, n = len(grid), len(grid[0])
+        mark = [[0]*n for _ in range(m)]
+        res = 0
+        dx, dy = [1, 0], [0, 1]
+
+        def dfs(i, j, t):
+            global res
+            t += grid[i][j]
+            if i == m-1 and j == n-1:
+                res = max(res, t)
+                return
+            for k in range(2):
+                x, y = i + dx[k], j + dy[k]
+                if x >= 0 and x < m and y >= 0 and y < n and not mark[x][y]:
+                    mark[x][y] = 1
+                    dfs(x, y, t)
+                    mark[x][y] = 0
+        dfs(0, 0, 0)
+        return res

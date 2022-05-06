@@ -20,8 +20,7 @@
 解释: 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
 """
 """ 题解
-法一：先对所有元素翻转，然后从首字符开始的双指针从前往后遍历对每个单词进行翻转。
-法二：从末尾开始的两个双指针，从后向前遍历。(推荐)
+从末尾开始的两个双指针，从后向前遍历。(推荐)
 """
 
 
@@ -40,29 +39,23 @@ class Solution:
         return ' '.join(res)
 
 
-# class Solution:
-#     def reverseWords(self, s: str) -> str:
-#         def swap(s, l, r):
-#             i, j = l, r
-#             while i < j:
-#                 s[i], s[j] = s[j], s[i]
-#                 i += 1
-#                 j -= 1
-#             return s[l: r+1]
-#
-#         s = list(s.strip())
-#         i, j = 0, len(s)-1
-#         res = []
-#         s = swap(s, i, j)
-#         i, j = 0, 0
-#         while i < len(s):
-#             j += 1
-#             if j >= len(s) or s[j] == ' ':
-#                 res.append(swap(s, i, j-1))
-#                 while j < len(s) and s[j] == ' ':
-#                     j = j+1
-#                 i = j
-#         return ' '.join([''.join(i) for i in res])
+""" 题解
+先对所有元素翻转，然后从首字符开始的双指针从前往后遍历对每个单词进行翻转。
+"""
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        s = list(s)[::-1]
+        print(s)
+        i, j = 0, 0
+        res = []
+        while i < len(s):
+            while j < len(s) and s[j] != ' ':
+                j += 1
+            res.append(''.join(s[i:j][::-1]))
+            while j < len(s) and s[j] == ' ':
+                j += 1
+            i = j
+        return ' '.join(res)
 
 
 s = "   a   b "

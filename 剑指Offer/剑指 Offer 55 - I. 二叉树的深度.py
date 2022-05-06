@@ -1,4 +1,5 @@
 """
+剑指 Offer 55 - I. 二叉树的深度
 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
 
 例如：
@@ -12,8 +13,8 @@
    15   7
 返回它的最大深度3 。
 """
-""" 题解
-BFS，初始化队列q，while q.qsize(): for q.size(): t=q.get()，扩展t。
+""" BFS解法
+BFS。记录层次遍历的层数。
 """
 
 
@@ -29,16 +30,32 @@ class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        from queue import Queue
-        q = Queue()
-        q.put(root)
-        depth = 0
-        while q.qsize():
-            for i in range(q.qsize()):
-                t = q.get()
+        from collections import deque
+        q = deque()
+        q.append(root)
+        res = 0
+        while len(q):
+            for _ in range(len(q)):
+                t = q.popleft()
                 if t.left:
-                    q.put(t.left)
+                    q.append(t.left)
                 if t.right:
-                    q.put(t.right)
-            depth += 1
-        return depth
+                    q.append(t.right)
+            res += 1
+        return res
+
+
+""" DFS解法
+DFS。当前节点深度等于其max(左孩子深度，右孩子深度)+1。
+"""
+
+
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        def dfs(root):
+            if not root:
+                return 0
+            return max(dfs(root.left), dfs(root.right))+1
+        return dfs(root)

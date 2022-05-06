@@ -18,30 +18,23 @@
  1  3  -1  -3  5 [3  6  7]      7
 """
 """ 题解
-维持一个单调递减的双端队列，每次遍历时，去掉队列中超出滑动窗口的元素，并保持队列单调递增（根据当前元素，右侧减少或直接增加）。
-3 -1
-3 -1 -3
-5 
-5 3
-6
-7
+维持一个单调递减的双端队列，每次遍历时，去掉队列中超出滑动窗口的元素，并保持队列单调递减。
 """
 
 
 class Solution:
     def maxSlidingWindow(self, nums, k: int):
-        queue = [0] * 100010
-        p, q = -1, -1
+        from collections import deque
+        q = deque()
         res = []
         for i in range(len(nums)):
-            if queue[p+1] < i-k+1:
-                p += 1
-            while p != q and nums[i] > nums[queue[q]]:
-                q -= 1
-            q += 1
-            queue[q] = i
+            if len(q) and q[0] < i-k+1:
+                q.popleft()
+            while len(q) and nums[i] > nums[q[-1]]:
+                q.pop()
+            q.append(i)
             if i >= k-1:
-                res.append(nums[queue[p+1]])
+                res.append(nums[q[0]])
         return res
 
 

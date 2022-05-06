@@ -14,7 +14,7 @@
 输出: 0
 """
 """ 题解
-二分，找最左端索引和最右端索引，本质找右区间端点和左区间端点。
+二分。找最左端索引和最右端索引，然后二者相减+1即为出现次数；单调数组中找一个区间，本质是找右区间端点和左区间端点。
 """
 
 
@@ -22,43 +22,41 @@ class Solution:
     def search(self, nums, target: int) -> int:
         if len(nums) == 0:
             return 0
-        def lb_s(l, r, t):
+
+        def lbs(l, r, target):
             if l >= r:
-                if nums[l] == t:
+                if nums[l] == target:
                     return l
                 else:
-                    return -1
-            x = (l+r) // 2
-            if nums[x] >= t:
-                r = x
-            else:
-                l = x+1
-            return lb_s(l, r, t)
+                    return None
 
-        def rb_s(l, r, t):
+            mid = (l + r) // 2
+            if nums[mid] >= target:
+                r = mid
+            else:
+                l = mid + 1
+            return lbs(l, r, target)
+
+        def rbs(l, r, target):
             if l >= r:
-                if nums[l] == t:
+                if nums[l] == target:
                     return l
                 else:
-                    return -1
-            x = (l+r+1) // 2
-            if nums[x] <= t:
-                l = x
+                    return None
+            mid = (l + r + 1) // 2
+            if nums[mid] <= target:
+                l = mid
             else:
-                r = x-1
-            return rb_s(l, r, t)
+                r = mid - 1
+            return rbs(l, r, target)
 
-        a, b = lb_s(0, len(nums) - 1, target), rb_s(0, len(nums)-1, target)
-        if a == -1:
+        l, r = lbs(0, len(nums) - 1, target), rbs(0, len(nums) - 1, target)
+        if l is None:
             return 0
-        return b-a+1
+        return r - l + 1
 
 
 nums = [5, 7, 7, 8, 8, 10]
 target = 10
 solution = Solution()
 print(solution.search(nums, target))
-
-
-
-

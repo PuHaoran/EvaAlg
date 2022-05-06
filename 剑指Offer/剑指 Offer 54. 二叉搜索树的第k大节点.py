@@ -25,7 +25,9 @@
  1
 输出: 4
 """
-
+""" 题解
+二叉搜索树。对二叉搜索树进行中序遍历，可以得到一个从小到大的数组。
+"""
 
 # Definition for a binary tree node.
 class TreeNode:
