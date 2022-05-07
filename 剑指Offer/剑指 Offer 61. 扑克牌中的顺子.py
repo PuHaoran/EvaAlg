@@ -15,7 +15,7 @@
 输入: [0,0,1,2,5]
 输出: True
 """
-""" 题解
+""" 题解一
 去掉0之后，判断是否重复，是否最大值-最小值<=4。
 """
 
@@ -28,5 +28,30 @@ class Solution:
             if t == 0:
                 return False
         if max(nums) - min(nums) <= 4:
+            return True
+        return False
+
+
+""" 题解二
+统计0的个数，判断是否重复，0的个数是否>=数字间隔之和。
+"""
+
+
+class Solution:
+    def isStraight(self, nums) -> bool:
+        zero_num = 0
+        cnt = 0
+        nums = sorted(nums)
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                zero_num += 1
+                continue
+            if i != 0 and nums[i-1] != 0:
+                dist = nums[i] - nums[i - 1] - 1
+                if dist < 0:
+                    return False
+                elif dist > 0:
+                    cnt += dist
+        if zero_num >= cnt:
             return True
         return False

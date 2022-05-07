@@ -19,19 +19,19 @@
 """
 """ 题解
 ①状态表达。f(i)点数集合i出现的概率。
-②状态转移。t=[0, 1.0/6,...], temp(i+j)=f(i)*t(j) f=temp
+②状态转移。t=[0, 1.0/6,...], temp(i+j)+=f(i)*arr(j) f=temp。
 """
 
 
 class Solution:
     def dicesProbability(self, n: int):
-        t = [0, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6]
+        arr = [0, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6]
         f = [0, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6, 1.0/6]
         for i in range(1, n):
-            temp = [0]*(6*n+1)
-            for j in range(i, 6*i+1):
+            temp = [0] * (6*n+1)
+            for j in range(i, i*6+1):
                 for k in range(1, 7):
-                    temp[j+k] += f[j]*t[k]
+                    temp[j+k] += f[j] * arr[k]
             f = temp
         return f[n:]
 

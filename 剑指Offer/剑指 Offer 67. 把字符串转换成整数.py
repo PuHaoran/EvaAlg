@@ -40,8 +40,7 @@
      因此返回 INT_MIN (−231) 。
 """
 """ 题解
-去掉两边的空字符，然后保存首位的正负号；
-遍历数组，若字符为符号字符(+/-)且在开头则跳过，若为数字字符则res=res*10+ord(s[i])-48，否则为非法字符则跳出循环。
+去掉两边的空字符，然后记录首位的正负号；遍历数组，若字符为符号字符(+/-)且在开头则跳过，若为数字字符则res=res*10+ord(s[i])-48，否则为非法字符则跳出循环。
 """
 
 
@@ -49,24 +48,22 @@ class Solution:
     def strToInt(self, str):
         _min, _max = -2**31, 2**31-1
         str = str.strip()
-        flag = 1
-        res = 0
         if len(str) == 0:
             return 0
-        if str[0] == '-':
-            flag = -1
+        flag = -1 if str[0] == '-' else 1
+        res = 0
         for i in range(len(str)):
             if i == 0 and (str[i] == '-' or str[i] == '+'):
                 continue
-            elif ord(str[i]) >= ord('0') and ord(str[i]) <= ord('9'):
-                res = res*10 + ord(str[i]) - ord('0')
+            elif str[i] >= '0' and str[i] <= '9':
+                res = res * 10 + int(str[i])
             else:
                 break
-        res = flag*res
+        res = flag * res
         if res > _max:
-            return _max
+            res = _max
         if res < _min:
-            return _min
+            res = _min
         return res
 
 

@@ -14,15 +14,17 @@
 输出: 45
 """
 """ 题解
-布尔判断作为终止条件并递归，先递归后返回值。 
+布尔判断作为递归终止条件。 
 """
 
 
 class Solution:
-    def __init__(self):
-        self.res = 0
-
     def sumNums(self, n: int) -> int:
-        n > 0 and self.sumNums(n - 1)
-        self.res += n
-        return self.res
+        global res
+        res = 0
+        def get_sum(n):
+            global res
+            n and get_sum(n-1)
+            res += n
+            return res
+        return get_sum(n)
