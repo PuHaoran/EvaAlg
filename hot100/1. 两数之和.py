@@ -25,9 +25,9 @@
 
 class Solution:
     def twoSum(self, nums, target: int):
-        num_dict = {}
+        d = {}
         for i in range(len(nums)):
-            if target-nums[i] not in num_dict:
-                num_dict[nums[i]] = i
+            if nums[i] in d:
+                return [d[nums[i]], i]
             else:
-                return [num_dict[target-nums[i]], i]
+                d[target-nums[i]] = i
